@@ -22,6 +22,16 @@ const stations = [
     id: 4,
     name: 'RaBe',
     url: 'http://stream.rabe.ch/livestream/rabe-mid.mp3.m3u'
+  },
+  {
+    id: 5,
+    name: 'Couleur 3',
+    url: 'http://stream.srg-ssr.ch/couleur3/mp3_128.m3u'
+  },
+  {
+    id: 6,
+    name: 'BBC 6 Music',
+    url: 'http://bbcmedia.ic.llnwd.net/stream/bbcmedia_6music_mf_p'
   }
 ];
 
@@ -104,13 +114,17 @@ class App extends Component {
 
   render() {
     const stationsButtons = stations.map(station => {
-      const stationClasses = station === this.state.activeStation ? 'App-station App-station-active' : 'App-station';
-      return <button
-          key={station.id}
-          className={stationClasses}
-          onClick={ () => this.togglePlayback(station) }>
-        { station.name }
-      </button>;
+      const stationClasses = station === this.state.activeStation ? 'App-station-button App-station-button-active' : 'App-station-button';
+      return (
+        <div className="App-station">
+          <button
+              key={station.id}
+              className={stationClasses}
+              onClick={ () => this.togglePlayback(station) }>
+            { station.name }
+          </button>
+        </div>
+      );
     });
 
     return (

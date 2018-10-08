@@ -1,6 +1,6 @@
 :root {
-  --stationsGutter: 5px;
-  --stationsMinSize: 100px;
+  --stations-gutter: 5px;
+  --stations-min-size: 100px;
 }
 
 .App {
@@ -20,16 +20,30 @@
 
 .App-stations {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--stationsMinSize), 1fr));
-  grid-auto-rows: var(--stationsMinSize);
-  grid-gap: var(--stationsGutter);
+  grid-template-columns: repeat(auto-fit, minmax(var(--stations-min-size), 1fr));
+  grid-gap: var(--stations-gutter);
+  padding: var(--stations-gutter);
 }
 
 .App-station {
-  font-size: 18px;
+  /* Maintain 1:1 aspect ratio, see https://css-tricks.com/aspect-ratio-boxes/ */
+  position: relative;
+  height: 0;
+  padding-top: 100%;
+  overflow: hidden;
 }
 
-.App-station-active {
+.App-station-button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  font-size: 18px;
+  word-wrap: break-word;
+}
+
+.App-station-button-active {
   background-color: darkgray;
   font-weight: bold;
 }
