@@ -2,27 +2,53 @@ import React, { Component } from 'react';
 import { Howl } from 'howler';
 import './App.css';
 
-const stationUrl = 'http://stream.srg-ssr.ch/regi_be_fr_vs/mp3_128.m3u';
-// const stationUrl = 'http://stream.srg-ssr.ch/m/regi_be_fr_vs/mp3_128';
+const stations = [
+  {
+    id: 1,
+    name: 'Radio SRF 1',
+    url: 'http://stream.srg-ssr.ch/regi_be_fr_vs/mp3_128.m3u'
+  },
+  {
+    id: 2,
+    name: 'Radio SRF 2 Kultur',
+    url: 'http://stream.srg-ssr.ch/drs2/mp3_128.m3u'
+  },
+  {
+    id: 3,
+    name: 'Radio SRF 3',
+    url: 'http://stream.srg-ssr.ch/drs3/mp3_128.m3u'
+  },
+  {
+    id: 4,
+    name: 'RaBe',
+    url: 'http://stream.rabe.ch/livestream/rabe-mid.mp3.m3u'
+  }
+];
+
 const FADE_TIME = 300;
 
 class App extends Component {
   sound = null;
-  soundId = null;
 
-  togglePlayback() {
-    if (this.isPlaying) {
+  constructor(props) {
+    super(props);
+    this.state = {
+      activeStation: null
+    };
+  }
+
+  togglePlayback(station) {
+    if (this.state.activeStation === station) {
       this.stop();
     } else {
-      this.play();
+      this.play(station);
     }
   }
 
-  play() {
+  play(station) {
     Promise
-      .all([this.stop(), this.getStreamUrl(stationUrl)])
+      .all([this.stop(), this.getStreamUrl(station.url)])
       .then(([_, streamUrl]) => {
-        console.log('streamUrl', streamUrl)
         this.sound = new Howl({
           src: streamUrl,
           html5: true,
@@ -30,6 +56,7 @@ class App extends Component {
         });
         this.soundId = this.sound.play();
         this.sound.fade(0, 1, FADE_TIME);
+        this.setState({ ...this.state, activeStation: station });
       });
   }
 
@@ -40,6 +67,7 @@ class App extends Component {
         this.sound && this.sound.unload();
         this.sound = null;
         this.soundId = null;
+        this.setState({ ...this.state, activeStation: null });
         resolve();
       }, this.sound ? FADE_TIME : 0);
     });
@@ -70,15 +98,27 @@ class App extends Component {
       });
   }
 
-  get isPlaying() {
-    return this.soundId && this.sound && this.sound.playing(this.soundId);
-  }
+  // get isPlaying() {
+  //   return this.soundId && this.sound && this.sound.playing(this.soundId);
+  // }
 
   render() {
+    const stationsButtons = stations.map(station => {
+      const stationClasses = station === this.state.activeStation ? 'App-station App-station-active' : 'App-station';
+      return <button
+          key={station.id}
+          className={stationClasses}
+          onClick={ () => this.togglePlayback(station) }>
+        { station.name }
+      </button>;
+    });
+
     return (
       <div className="App">
         <header className="App-header">
-          <button onClick={this.togglePlayback.bind(this)}>Play/Stop</button>
+          <div className="App-stations">
+            { stationsButtons }
+          </div>
         </header>
       </div>
     );
