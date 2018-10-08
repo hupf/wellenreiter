@@ -56,9 +56,8 @@ class App extends Component {
   }
 
   play(station) {
-    Promise
-      .all([this.stop(), this.getStreamUrl(station.url)])
-      .then(([_, streamUrl]) => {
+    Promise.all([this.stop(), this.getStreamUrl(station.url)]).then(
+      ([_, streamUrl]) => {
         this.sound = new Howl({
           src: streamUrl,
           html5: true,
@@ -67,7 +66,8 @@ class App extends Component {
         this.soundId = this.sound.play();
         this.sound.fade(0, 1, FADE_TIME);
         this.setState({ ...this.state, activeStation: station });
-      });
+      }
+    );
   }
 
   stop() {
@@ -100,12 +100,10 @@ class App extends Component {
   }
 
   parseM3U(data) {
-    return data
-      .split('\n')
-      .find(line => {
-        const firstChar = line.trim()[0];
-        return firstChar != null && firstChar !== '#';
-      });
+    return data.split('\n').find(line => {
+      const firstChar = line.trim()[0];
+      return firstChar != null && firstChar !== '#';
+    });
   }
 
   // get isPlaying() {
@@ -114,14 +112,18 @@ class App extends Component {
 
   render() {
     const stationsButtons = stations.map(station => {
-      const stationClasses = station === this.state.activeStation ? 'App-station-button App-station-button-active' : 'App-station-button';
+      let stationClasses = 'App-station-button';
+      if (station === this.state.activeStation) {
+        stationClasses += ' App-station-button-active';
+      }
       return (
         <div className="App-station">
           <button
-              key={station.id}
-              className={stationClasses}
-              onClick={ () => this.togglePlayback(station) }>
-            { station.name }
+            key={station.id}
+            className={stationClasses}
+            onClick={() => this.togglePlayback(station)}
+          >
+            {station.name}
           </button>
         </div>
       );
@@ -130,9 +132,7 @@ class App extends Component {
     return (
       <div className="App">
         <header className="App-header">
-          <div className="App-stations">
-            { stationsButtons }
-          </div>
+          <div className="App-stations">{stationsButtons}</div>
         </header>
       </div>
     );
