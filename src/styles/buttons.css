@@ -1,0 +1,26 @@
+.button {
+  padding: 0.5em 1em;
+  border: 0;
+  border-radius: 3px;
+  font-size: var(--base-font-size);
+  text-decoration: none;
+  background-color: var(--gray-light);
+}
+.button:active {
+  background-color: var(--gray);
+  color: #fff;
+}
+
+.button.is-primary {
+  background-color: var(--blue);
+  color: #fff;
+}
+.button.is-primary:active {
+  background-color: var(--blue-dark);
+}
+
+.button + .button,
+a:not(.button) + .button,
+.button + a:not(.button) {
+  margin-left: 1em;
+}

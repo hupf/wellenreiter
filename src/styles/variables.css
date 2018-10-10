@@ -1,0 +1,15 @@
+:root {
+  --base-font-size: 14px;
+
+  --error: red;
+  --blue: #125e90;
+  --blue-dark: #105380;
+  --gray-lighter: #e5e4ea;
+  --gray-light: #bababc;
+  --gray: #3d3e40;
+  --gray-darker: #1f242a;
+  --gray-darker: #131315;
+
+  --stations-gutter: 5px;
+  --stations-min-size: 100px;
+}
