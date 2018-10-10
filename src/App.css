@@ -1,49 +1,15 @@
 :root {
+  --gray-lighter: #e5e4ea;
+  --gray-light: #bababc;
+  --gray: #3d3e40;
+  --gray-darker: #1f242a;
+  --gray-darker: #131315;
+
   --stations-gutter: 5px;
   --stations-min-size: 100px;
 }
 
 .App {
-  text-align: center;
-}
-
-.App-header {
-  background-color: #282c34;
   min-height: 100vh;
-  /* display: flex; */
-  /* flex-direction: column; */
-  /* align-items: center; */
-  /* justify-content: center; */
-  font-size: calc(10px + 2vmin);
-  color: white;
-}
-
-.App-stations {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(var(--stations-min-size), 1fr));
-  grid-gap: var(--stations-gutter);
-  padding: var(--stations-gutter);
-}
-
-.App-station {
-  /* Maintain 1:1 aspect ratio, see https://css-tricks.com/aspect-ratio-boxes/ */
-  position: relative;
-  height: 0;
-  padding-top: 100%;
-  overflow: hidden;
-}
-
-.App-station-button {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  font-size: 18px;
-  word-wrap: break-word;
-}
-
-.App-station-button-active {
-  background-color: darkgray;
-  font-weight: bold;
+  background-color: var(--gray);
 }

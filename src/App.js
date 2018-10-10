@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Howl } from 'howler';
+
 import './App.css';
+import { Stations } from './Stations';
 
 const stations = [
   {
@@ -111,30 +113,14 @@ class App extends Component {
   // }
 
   render() {
-    const stationsButtons = stations.map(station => {
-      let stationClasses = 'App-station-button';
-      if (station === this.state.activeStation) {
-        stationClasses += ' App-station-button-active';
-      }
-      return (
-        <div className="App-station">
-          <button
-            key={station.id}
-            className={stationClasses}
-            onClick={() => this.togglePlayback(station)}
-          >
-            {station.name}
-          </button>
-        </div>
-      );
-    });
-
     return (
-      <div className="App">
-        <header className="App-header">
-          <div className="App-stations">{stationsButtons}</div>
-        </header>
-      </div>
+      <main className="App">
+        <Stations
+          stations={stations}
+          activeStation={this.state.activeStation}
+          togglePlayback={this.togglePlayback.bind(this)}
+        />
+      </main>
     );
   }
 }

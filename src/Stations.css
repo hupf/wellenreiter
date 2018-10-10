@@ -1,0 +1,6 @@
+.Stations {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(var(--stations-min-size), 1fr));
+  grid-gap: var(--stations-gutter);
+  padding: var(--stations-gutter);
+}
