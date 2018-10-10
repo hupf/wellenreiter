@@ -1,9 +1,9 @@
 import React from 'react';
 
 import './Stations.css';
-import { Station } from './Station';
+import Station from './Station';
 
-export function Stations(props) {
+function Stations(props) {
   const { stations, activeStation, togglePlayback } = props;
 
   function isActive(station) {
@@ -23,3 +23,5 @@ export function Stations(props) {
     </div>
   );
 }
+
+export default Stations;

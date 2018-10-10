@@ -2,7 +2,7 @@ import React from 'react';
 
 import './Station.css';
 
-export function Station(props) {
+function Station(props) {
   const { station, active, togglePlayback } = props;
 
   let stationClasses = 'Station-button';
@@ -22,3 +22,5 @@ export function Station(props) {
     </div>
   );
 }
+
+export default Station;
