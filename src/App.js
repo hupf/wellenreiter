@@ -65,22 +65,35 @@ class App extends Component {
     // });
   }
 
-  createStation(data) {
-    const station = { id: uuidv4(), ...data };
-    return API.graphql(graphqlOperation(createStation, station)).then(
-      response => console.log('response', response)
-    );
-  }
-
   handleStationSubmit = data => {
-    // const stations = this.state.stations;
-    this.createStation(data).then(() => {
+    this.createStation(data).then(station => {
       this.setState({
-        // stations: [...stations, { id: stations.length + 1, ...data }],
+        stations: [...this.state.stations, station],
         redirectToMain: true
       });
     });
   };
+
+  createStation(data) {
+    const input = {
+      id: uuidv4(),
+      position: this.getMaxStationPosition() + 1,
+      ...data
+    };
+    return API.graphql(graphqlOperation(createStation, { input })).then(
+      response => response.data.createStation,
+      error => {
+        console.log('error', error);
+      }
+    );
+  }
+
+  getMaxStationPosition() {
+    return this.state.stations.reduce(
+      (position, station) => Math.max(position, station.position),
+      0
+    );
+  }
 
   render() {
     const redirectToMain = this.state.redirectToMain ? (
