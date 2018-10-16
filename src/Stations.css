@@ -4,3 +4,7 @@
   grid-gap: var(--stations-gutter);
   padding: var(--stations-gutter);
 }
+
+.Stations-few {
+  grid-template-columns: repeat(auto-fit, calc(100% / 3 - var(--stations-gutter)));
+}

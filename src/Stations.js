@@ -10,8 +10,10 @@ function Stations(props) {
     return station.id === (activeStation && activeStation.id);
   }
 
+  const className = `Stations ${stations.length <= 3 ? 'Stations-few' : ''}`;
+
   return (
-    <div className="Stations">
+    <div className={className}>
       {stations.map(station => (
         <Station
           key={station.id}
