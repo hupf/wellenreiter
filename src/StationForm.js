@@ -1,6 +1,8 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
+import isUrl from 'is-url';
+
 class StationForm extends Component {
   constructor(props) {
     super(props);
@@ -58,8 +60,9 @@ class StationForm extends Component {
   hasError(name, value) {
     switch (name) {
       case 'name':
-      case 'url':
         return value.trim().length === 0;
+      case 'url':
+        return value.trim().length === 0 || !isUrl(value);
       default:
         return false;
     }
