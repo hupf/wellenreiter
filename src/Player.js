@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import { Component } from 'react';
 import { Howl } from 'howler';
 
 const FADE_TIME = 300;

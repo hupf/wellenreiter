@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 import './Station.css';
 
-const LONG_CLICK_TIME = 1000;
+const LONG_CLICK_TIME = 700;
 
 class Station extends Component {
   clickTimer = null;

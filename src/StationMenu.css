@@ -10,8 +10,6 @@
   line-height: 40px;
   font-size: 20px;
   font-weight: bold;
-  border: 0;
-  border-radius: var(--button-border-radius);
   background: rgba(255, 255, 255, 0.7);
 }
 

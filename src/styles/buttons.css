@@ -3,6 +3,7 @@
   border: 0;
   border-radius: var(--button-border-radius);
   font-size: var(--base-font-size);
+  text-align: center;
   text-decoration: none;
   background-color: var(--gray-light);
 }
@@ -17,10 +18,4 @@
 }
 .button.is-primary:active {
   background-color: var(--blue-dark);
-}
-
-.button + .button,
-a:not(.button) + .button,
-.button + a:not(.button) {
-  margin-left: 1em;
 }

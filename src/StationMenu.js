@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './StationMenu.css';
 
@@ -8,7 +9,6 @@ function StationMenu(props) {
     isFirst,
     isLast,
     onShortClick,
-    onEdit,
     onDelete,
     onMoveBackward,
     onMoveForward
@@ -16,7 +16,7 @@ function StationMenu(props) {
 
   const backwardButton = !isFirst && (
     <button
-      className="StationMenu-button StationMenu-button-backward"
+      className="button StationMenu-button StationMenu-button-backward"
       onClick={() => onMoveBackward(station)}
     >
       ←
@@ -24,7 +24,7 @@ function StationMenu(props) {
   );
   const forwardButton = !isLast && (
     <button
-      className="StationMenu-button StationMenu-button-forward"
+      className="button StationMenu-button StationMenu-button-forward"
       onClick={() => onMoveForward(station)}
     >
       →
@@ -36,14 +36,14 @@ function StationMenu(props) {
       <button className="Station-button" onClick={() => onShortClick(station)}>
         {station.name}
       </button>
-      <button
-        className="StationMenu-button StationMenu-button-edit"
-        onClick={() => onEdit(station)}
+      <Link
+        to={`/stations/${station.id}/edit`}
+        className="button StationMenu-button StationMenu-button-edit"
       >
         ✎
-      </button>
+      </Link>
       <button
-        className="StationMenu-button StationMenu-button-delete"
+        className="button StationMenu-button StationMenu-button-delete"
         onClick={() => onDelete(station)}
       >
         🗑

@@ -40,7 +40,6 @@ class Stations extends Component {
           isFirst={index === 0}
           isLast={index === this.props.stations.length - 1}
           onShortClick={this.hideStationMenu}
-          onEdit={this.props.onEdit}
           onDelete={this.props.onDelete}
           onMoveBackward={this.props.onMoveBackward}
           onMoveForward={this.props.onMoveForward}

@@ -32,3 +32,9 @@ input, textarea {
 .has-error input, textarea, select {
   border-color: var(--error);
 }
+
+form .button + .button,
+form a:not(.button) + .button,
+form .button + a:not(.button) {
+  margin-left: 1em;
+}

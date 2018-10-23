@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import './Main.css';
+import { StationsContext } from './context/stations';
 import Player from './Player';
 import Stations from './Stations';
 
@@ -22,10 +23,6 @@ class Main extends Component {
     this.setState({ playingStation: station });
   };
 
-  onEdit = station => {
-    console.log('edit', station);
-  };
-
   render() {
     return (
       <div className="Main">
@@ -33,17 +30,25 @@ class Main extends Component {
           station={this.state.activeStation}
           onPlaybackStart={this.onPlaybackStart}
         />
-        <Stations
-          stations={this.props.stations}
-          activeStation={this.state.activeStation}
-          playingStation={this.state.playingStation}
-          togglePlayback={this.togglePlayback}
-          onEdit={this.onEdit}
-          onDelete={this.props.onDelete}
-          onMoveBackward={this.props.onMoveBackward}
-          onMoveForward={this.props.onMoveForward}
-        />
-        <Link className="Main-add button" to="/station/new">
+        <StationsContext.Consumer>
+          {({
+            stations,
+            deleteStation,
+            moveStationBackward,
+            moveStationForward
+          }) => (
+            <Stations
+              stations={stations}
+              activeStation={this.state.activeStation}
+              playingStation={this.state.playingStation}
+              togglePlayback={this.togglePlayback}
+              onDelete={deleteStation}
+              onMoveBackward={moveStationBackward}
+              onMoveForward={moveStationForward}
+            />
+          )}
+        </StationsContext.Consumer>
+        <Link className="Main-add button" to="/stations/new">
           +
         </Link>
       </div>

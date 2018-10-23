@@ -1,8 +1,8 @@
 // eslint-disable
 // this is an auto generated file. This will be overwritten
 
-export const getStation = `query GetStation($id: ID!, $position: Int!) {
-  getStation(id: $id, position: $position) {
+export const getStation = `query GetStation($id: ID!) {
+  getStation(id: $id) {
     id
     name
     url

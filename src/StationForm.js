@@ -1,25 +1,33 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
-
+import { Link, Redirect } from 'react-router-dom';
 import isUrl from 'is-url';
 
-class StationForm extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      name: '',
-      url: '',
-      errors: {
-        name: false,
-        url: false
-      }
-    };
+import { getStation } from './graphql/stations';
+import { StationsContext } from './context/stations';
 
-    this.handleInputChange = this.handleInputChange.bind(this);
-    this.handleSubmit = this.handleSubmit.bind(this);
+class StationForm extends Component {
+  state = {
+    name: '',
+    url: '',
+    errors: {
+      name: false,
+      url: false
+    },
+    redirectToMain: false
+  };
+
+  get stationId() {
+    return this.props.match.params.stationId;
   }
 
-  handleInputChange(event) {
+  async componentDidMount() {
+    if (this.stationId) {
+      const station = await getStation(this.stationId);
+      this.setState({ station, name: station.name, url: station.url });
+    }
+  }
+
+  handleInputChange = event => {
     const target = event.target;
     const { name, value } = target;
 
@@ -27,15 +35,17 @@ class StationForm extends Component {
       [name]: value,
       errors: { ...this.state.errors, [name]: this.hasError(name, value) }
     });
-  }
+  };
 
-  handleSubmit(event) {
+  handleSubmit = (event, saveStation) => {
     event.preventDefault();
     if (this.validate()) {
-      const { name, url } = this.state;
-      this.props.submit({ name, url });
+      const { station, name, url } = this.state;
+      const data = { ...station, name, url };
+      saveStation(data);
+      this.setState({ redirectToMain: true });
     }
-  }
+  };
 
   errorText = name => {
     if (this.state.errors[name]) {
@@ -69,38 +79,45 @@ class StationForm extends Component {
   }
 
   render() {
+    if (this.state.redirectToMain) {
+      return <Redirect to="/" />;
+    }
     return (
-      <form onSubmit={this.handleSubmit.bind(this)}>
-        <h1>Add Station</h1>
-        <fieldset className={this.errorClass('name')}>
-          <label htmlFor="name">Station name</label>
-          <input
-            id="name"
-            name="name"
-            type="text"
-            value={this.state.name}
-            onChange={this.handleInputChange.bind(this)}
-          />
-          {this.errorText('name')}
-        </fieldset>
-        <fieldset className={this.errorClass('url')}>
-          <label htmlFor="url">Streaming URL</label>
-          <input
-            id="url"
-            name="url"
-            type="text"
-            value={this.state.url}
-            onChange={this.handleInputChange.bind(this)}
-          />
-          {this.errorText('url')}
-        </fieldset>
-        <fieldset>
-          <button className="button is-primary" type="submit">
-            Save
-          </button>
-          <Link to="/">Cancel</Link>
-        </fieldset>
-      </form>
+      <StationsContext.Consumer>
+        {({ saveStation }) => (
+          <form onSubmit={event => this.handleSubmit(event, saveStation)}>
+            <h1>Add Station</h1>
+            <fieldset className={this.errorClass('name')}>
+              <label htmlFor="name">Station name</label>
+              <input
+                id="name"
+                name="name"
+                type="text"
+                value={this.state.name}
+                onChange={this.handleInputChange}
+              />
+              {this.errorText('name')}
+            </fieldset>
+            <fieldset className={this.errorClass('url')}>
+              <label htmlFor="url">Streaming URL</label>
+              <input
+                id="url"
+                name="url"
+                type="text"
+                value={this.state.url}
+                onChange={this.handleInputChange}
+              />
+              {this.errorText('url')}
+            </fieldset>
+            <fieldset>
+              <button className="button is-primary" type="submit">
+                Save
+              </button>
+              <Link to="/">Cancel</Link>
+            </fieldset>
+          </form>
+        )}
+      </StationsContext.Consumer>
     );
   }
 }

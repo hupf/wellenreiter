@@ -1,7 +1,10 @@
 import { API, graphqlOperation } from 'aws-amplify';
 import uuidv4 from 'uuid/v4';
 
-import { listStations as listStationsQuery } from './queries';
+import {
+  listStations as listStationsQuery,
+  getStation as getStationQuery
+} from './queries';
 import {
   createStation as createStationMutation,
   updateStation as updateStationMutation,
@@ -50,6 +53,18 @@ export async function listStations() {
   //     }
   //   ]);
   // });
+}
+
+export async function getStation(id) {
+  try {
+    const response = await API.graphql(
+      graphqlOperation(getStationQuery, { id })
+    );
+    const station = response.data.getStation;
+    return station;
+  } catch (error) {
+    console.error('error', error);
+  }
 }
 
 export async function createStation(data, stations) {
