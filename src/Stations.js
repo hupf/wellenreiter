@@ -1,39 +1,73 @@
-import React from 'react';
+import React, { Component } from 'react';
 
 import './Stations.css';
 import Station from './Station';
+import StationMenu from './StationMenu';
 
-function Stations(props) {
-  const { stations, activeStation, playingStation, togglePlayback } = props;
+class Stations extends Component {
+  state = { menuStation: null };
 
-  function isLoading(station) {
+  isLoading(station) {
+    const { playingStation, activeStation } = this.props;
     return (
       !playingStation && station.id === (activeStation && activeStation.id)
     );
   }
 
-  function isActive(station) {
+  isActive(station) {
+    const { playingStation, activeStation } = this.props;
     return (
       station.id === (activeStation && activeStation.id) &&
       station.id === (playingStation && playingStation.id)
     );
   }
 
-  const className = `Stations ${stations.length <= 3 ? 'Stations-few' : ''}`;
+  showStationMenu = station => {
+    this.setState({ menuStation: station });
+  };
 
-  return (
-    <div className={className}>
-      {stations.map(station => (
+  hideStationMenu = () => {
+    this.setState({ menuStation: null });
+  };
+
+  renderStation(station) {
+    if (station === this.state.menuStation) {
+      return (
+        <StationMenu
+          key={station.id}
+          station={station}
+          onShortClick={this.hideStationMenu}
+          onEdit={this.props.onEdit}
+          onDelete={this.props.onDelete}
+          onMoveBackward={this.props.onMoveBackward}
+          onMoveForward={this.props.onMoveForward}
+        />
+      );
+    } else {
+      return (
         <Station
           key={station.id}
           station={station}
-          loading={isLoading(station)}
-          active={isActive(station)}
-          togglePlayback={togglePlayback}
+          loading={this.isLoading(station)}
+          active={this.isActive(station)}
+          onShortClick={this.props.togglePlayback}
+          onLongClick={this.showStationMenu}
         />
-      ))}
-    </div>
-  );
+      );
+    }
+  }
+
+  render() {
+    const { stations } = this.props;
+
+    const className = `Stations ${stations.length <= 3 ? 'Stations-few' : ''}`;
+
+    return (
+      <div className={className}>
+        {stations.map(station => this.renderStation(station))}
+      </div>
+    );
+  }
 }
 
 export default Stations;

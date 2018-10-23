@@ -5,7 +5,7 @@ import Amplify from 'aws-amplify';
 import './App.css';
 import Main from './Main';
 import StationForm from './StationForm';
-import { listStations, createStation } from './graphql/stations';
+import { listStations, createStation, deleteStation } from './graphql/stations';
 import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
@@ -23,13 +23,29 @@ class App extends Component {
     listStations().then(stations => this.setState({ stations }));
   }
 
-  handleStationSubmit = data => {
-    createStation(data, this.state.stations).then(station => {
-      this.setState({
-        stations: [...this.state.stations, station],
-        redirectToMain: true
-      });
-    });
+  handleStationSubmit = async data => {
+    const station = await createStation(data, this.state.stations);
+    this.setState(state => ({
+      stations: [...state.stations, station],
+      redirectToMain: true
+    }));
+  };
+
+  deleteStation = async station => {
+    console.log('deleteStation', station);
+
+    await deleteStation(station);
+    this.setState(state => ({
+      stations: state.stations.filter(s => s.id !== station.id)
+    }));
+  };
+
+  moveStationBackward = station => {
+    console.log('move backward', station);
+  };
+
+  moveStationForward = station => {
+    console.log('move foward', station);
   };
 
   render() {
@@ -42,7 +58,15 @@ class App extends Component {
           <Route
             exact
             path="/"
-            render={props => <Main {...props} stations={this.state.stations} />}
+            render={props => (
+              <Main
+                {...props}
+                stations={this.state.stations}
+                onDelete={this.deleteStation}
+                onMoveBackward={this.moveStationBackward}
+                onMoveFoward={this.moveStationForward}
+              />
+            )}
           />
           <Route
             path="/station/new"

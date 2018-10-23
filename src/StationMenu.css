@@ -1,0 +1,41 @@
+.StationMenu {
+  position:relative;
+}
+
+.StationMenu-button {
+  --station-menu-button-margin: calc(2 * var(--button-border-radius));
+  position: absolute;
+  width: 40px;
+  padding: 0;
+  line-height: 40px;
+  font-size: 20px;
+  font-weight: bold;
+  border: 0;
+  border-radius: var(--button-border-radius);
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.StationMenu-button:active,
+.StationMenu-button:hover {
+  background: #fff;
+}
+
+.StationMenu-button-edit {
+  top: var(--station-menu-button-margin);
+  left: var(--station-menu-button-margin);
+}
+
+.StationMenu-button-delete {
+  top: var(--station-menu-button-margin);
+  right: var(--station-menu-button-margin);
+}
+
+.StationMenu-button-backward {
+  bottom: var(--station-menu-button-margin);
+  left: var(--station-menu-button-margin);
+}
+
+.StationMenu-button-forward {
+  bottom: var(--station-menu-button-margin);
+  right: var(--station-menu-button-margin);
+}

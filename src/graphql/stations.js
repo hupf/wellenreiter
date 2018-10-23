@@ -4,7 +4,8 @@ import uuidv4 from 'uuid/v4';
 import { listStations as listStationsQuery } from './queries';
 import {
   createStation as createStationMutation,
-  updateStation as updateStationMutation
+  updateStation as updateStationMutation,
+  deleteStation as deleteStationMutation
 } from './mutations';
 
 export async function listStations() {
@@ -69,7 +70,17 @@ export async function createStation(data, stations) {
 
 export async function updateStation(data) {}
 
-export async function deleteStation(data) {}
+export async function deleteStation(station) {
+  const input = { id: station.id };
+  try {
+    const response = await API.graphql(
+      graphqlOperation(deleteStationMutation, { input })
+    );
+    return response.data.deleteStation;
+  } catch (error) {
+    console.log('error', error);
+  }
+}
 
 function getMaxStationPosition(stations) {
   return stations.reduce(

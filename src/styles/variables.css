@@ -7,8 +7,10 @@
   --gray-lighter: #e5e4ea;
   --gray-light: #bababc;
   --gray: #3d3e40;
-  --gray-darker: #1f242a;
+  --gray-dark: #1f242a;
   --gray-darker: #131315;
+
+  --button-border-radius: 3px;
 
   --stations-gutter: 5px;
   --stations-min-size: 100px;
