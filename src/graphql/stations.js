@@ -14,7 +14,7 @@ export async function listStations() {
     const stations = response.data.listStations.items;
     return stations.sort((a, b) => a.position - b.position);
   } catch (error) {
-    console.log('error', error);
+    console.error('error', error);
   }
   // return new Promise(resolve => {
   //   resolve([
@@ -64,11 +64,20 @@ export async function createStation(data, stations) {
     );
     return response.data.createStation;
   } catch (error) {
-    console.log('error', error);
+    console.error('error', error);
   }
 }
 
-export async function updateStation(data) {}
+export async function updateStation(data) {
+  try {
+    const response = await API.graphql(
+      graphqlOperation(updateStationMutation, { input: data })
+    );
+    return response.data.updateStation;
+  } catch (error) {
+    console.error('error', error);
+  }
+}
 
 export async function deleteStation(station) {
   const input = { id: station.id };
@@ -78,7 +87,18 @@ export async function deleteStation(station) {
     );
     return response.data.deleteStation;
   } catch (error) {
-    console.log('error', error);
+    console.error('error', error);
+  }
+}
+
+export async function swapStationPositions(station, siblingStation) {
+  try {
+    return await Promise.all([
+      updateStation({ ...station, position: siblingStation.position }),
+      updateStation({ ...siblingStation, position: station.position })
+    ]);
+  } catch (error) {
+    console.error('error', error);
   }
 }
 

@@ -31,11 +31,14 @@ class Stations extends Component {
   };
 
   renderStation(station) {
-    if (station === this.state.menuStation) {
+    if (station.id === (this.state.menuStation && this.state.menuStation.id)) {
+      const index = this.props.stations.indexOf(station);
       return (
         <StationMenu
           key={station.id}
           station={station}
+          isFirst={index === 0}
+          isLast={index === this.props.stations.length - 1}
           onShortClick={this.hideStationMenu}
           onEdit={this.props.onEdit}
           onDelete={this.props.onDelete}

@@ -5,12 +5,31 @@ import './StationMenu.css';
 function StationMenu(props) {
   const {
     station,
+    isFirst,
+    isLast,
     onShortClick,
     onEdit,
     onDelete,
     onMoveBackward,
     onMoveForward
   } = props;
+
+  const backwardButton = !isFirst && (
+    <button
+      className="StationMenu-button StationMenu-button-backward"
+      onClick={() => onMoveBackward(station)}
+    >
+      ←
+    </button>
+  );
+  const forwardButton = !isLast && (
+    <button
+      className="StationMenu-button StationMenu-button-forward"
+      onClick={() => onMoveForward(station)}
+    >
+      →
+    </button>
+  );
 
   return (
     <div className="Station StationMenu">
@@ -29,18 +48,8 @@ function StationMenu(props) {
       >
         🗑
       </button>
-      <button
-        className="StationMenu-button StationMenu-button-backward"
-        onClick={() => onMoveBackward(station)}
-      >
-        ←
-      </button>
-      <button
-        className="StationMenu-button StationMenu-button-forward"
-        onClick={() => onMoveForward(station)}
-      >
-        →
-      </button>
+      {backwardButton}
+      {forwardButton}
     </div>
   );
 }

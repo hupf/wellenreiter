@@ -5,7 +5,12 @@ import Amplify from 'aws-amplify';
 import './App.css';
 import Main from './Main';
 import StationForm from './StationForm';
-import { listStations, createStation, deleteStation } from './graphql/stations';
+import {
+  listStations,
+  createStation,
+  deleteStation,
+  swapStationPositions
+} from './graphql/stations';
 import aws_exports from './aws-exports';
 
 Amplify.configure(aws_exports);
@@ -32,21 +37,35 @@ class App extends Component {
   };
 
   deleteStation = async station => {
-    console.log('deleteStation', station);
-
     await deleteStation(station);
     this.setState(state => ({
       stations: state.stations.filter(s => s.id !== station.id)
     }));
   };
 
-  moveStationBackward = station => {
-    console.log('move backward', station);
+  moveStationBackward = async station => {
+    this.moveStation(station, -1);
   };
 
-  moveStationForward = station => {
-    console.log('move foward', station);
+  moveStationForward = async station => {
+    this.moveStation(station, 1);
   };
+
+  async moveStation(station, positionDelta) {
+    const index = this.state.stations.indexOf(station);
+    const siblingIndex = index + positionDelta;
+    const [updatedStation, updatedSiblingStation] = await swapStationPositions(
+      station,
+      this.state.stations[siblingIndex]
+    );
+
+    this.setState(state => {
+      const newStations = [...state.stations];
+      newStations[index] = updatedSiblingStation;
+      newStations[siblingIndex] = updatedStation;
+      return { stations: newStations };
+    });
+  }
 
   render() {
     const redirectToMain = this.state.redirectToMain ? (
@@ -64,7 +83,7 @@ class App extends Component {
                 stations={this.state.stations}
                 onDelete={this.deleteStation}
                 onMoveBackward={this.moveStationBackward}
-                onMoveFoward={this.moveStationForward}
+                onMoveForward={this.moveStationForward}
               />
             )}
           />
