@@ -1,7 +1,14 @@
+.form-container {
+  min-height: 100vh;
+  display: grid;
+  grid-template-columns: 1fr minmax(300px, 500px) 1fr;
+  grid-template-rows: 1fr min-content 1fr;
+}
+
 form {
-  width: 50%;
-  min-width: 300px;
-  margin: 1em auto;
+  grid-column: 2 / 3;
+  grid-row: 2 / 3;
+  margin: var(--stations-gutter);
   padding: 1em;
   background-color: #fff;
   border-radius: 3px;
@@ -19,6 +26,8 @@ label {
 }
 
 input, textarea {
+  width: 100%;
+  padding: 0.5em;
   border: 1px solid var(--gray-lighter);
   font-size: var(--base-font-size);
 }

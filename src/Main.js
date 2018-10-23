@@ -54,7 +54,7 @@ class Main extends Component {
           )}
         </StationsContext.Consumer>
         <Link className="Main-add button" to="/stations/new">
-          +
+          ＋
         </Link>
       </div>
     );

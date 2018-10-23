@@ -82,40 +82,43 @@ class StationForm extends Component {
     if (this.state.redirectToMain) {
       return <Redirect to="/" />;
     }
+    const title = this.stationId ? 'Change station' : 'Add station';
     return (
       <StationsContext.Consumer>
         {({ saveStation }) => (
-          <form onSubmit={event => this.handleSubmit(event, saveStation)}>
-            <h1>Add Station</h1>
-            <fieldset className={this.errorClass('name')}>
-              <label htmlFor="name">Station name</label>
-              <input
-                id="name"
-                name="name"
-                type="text"
-                value={this.state.name}
-                onChange={this.handleInputChange}
-              />
-              {this.errorText('name')}
-            </fieldset>
-            <fieldset className={this.errorClass('url')}>
-              <label htmlFor="url">Streaming URL</label>
-              <input
-                id="url"
-                name="url"
-                type="text"
-                value={this.state.url}
-                onChange={this.handleInputChange}
-              />
-              {this.errorText('url')}
-            </fieldset>
-            <fieldset>
-              <button className="button is-primary" type="submit">
-                Save
-              </button>
-              <Link to="/">Cancel</Link>
-            </fieldset>
-          </form>
+          <div className="form-container">
+            <form onSubmit={event => this.handleSubmit(event, saveStation)}>
+              <h1>{title}</h1>
+              <fieldset className={this.errorClass('name')}>
+                <label htmlFor="name">Station name</label>
+                <input
+                  id="name"
+                  name="name"
+                  type="text"
+                  value={this.state.name}
+                  onChange={this.handleInputChange}
+                />
+                {this.errorText('name')}
+              </fieldset>
+              <fieldset className={this.errorClass('url')}>
+                <label htmlFor="url">Streaming URL</label>
+                <input
+                  id="url"
+                  name="url"
+                  type="text"
+                  value={this.state.url}
+                  onChange={this.handleInputChange}
+                />
+                {this.errorText('url')}
+              </fieldset>
+              <fieldset>
+                <button className="button is-primary" type="submit">
+                  Save
+                </button>
+                <Link to="/">Cancel</Link>
+              </fieldset>
+            </form>
+          </div>
         )}
       </StationsContext.Consumer>
     );

@@ -1,9 +1,18 @@
+.Main {
+  min-height: 100vh;
+  display: grid;
+  grid-template-rows: min-content auto;
+}
+
 .Main-add {
+  align-self: end;
+  justify-self: end;
   display: block;
-  width: 2em;
-  height: 2em;
-  line-height: 2em;
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
   padding: 0;
+  margin: var(--stations-gutter);
   border-radius: 50%;
   font-size: 20px;
 }
