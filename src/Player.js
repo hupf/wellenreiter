@@ -21,7 +21,7 @@ class Player extends Component {
           this.props.onPlaybackStart(newStation);
         }
       } catch (error) {
-        console.error('error', error);
+        this.onError(error);
       }
     }
   }
@@ -29,11 +29,7 @@ class Player extends Component {
   play(url) {
     return Promise.all([this.stop(), this.getStreamUrl(url)]).then(
       ([_, streamUrl]) => {
-        this.sound = new Howl({
-          src: streamUrl,
-          html5: true,
-          volume: 0
-        });
+        this.initHowler(streamUrl);
         this.soundId = this.sound.play();
         this.sound.fade(0, 1, FADE_TIME);
         return new Promise(resolve => setTimeout(resolve, FADE_TIME));
@@ -63,10 +59,10 @@ class Player extends Component {
     }
   }
 
-  fetchM3U(url) {
-    return fetch(url)
-      .then(response => response.text())
-      .then(data => this.parseM3U(data));
+  async fetchM3U(url) {
+    const response = await fetch(url);
+    const data = await response.text();
+    return this.parseM3U(data);
   }
 
   parseM3U(data) {
@@ -76,9 +72,20 @@ class Player extends Component {
     });
   }
 
-  // get isPlaying() {
-  //   return this.soundId && this.sound && this.sound.playing(this.soundId);
-  // }
+  initHowler(streamUrl) {
+    this.sound = new Howl({
+      src: streamUrl,
+      html5: true,
+      volume: 0
+    });
+    this.sound.on('loaderror', this.onError);
+    this.sound.on('playerror', this.onError);
+  }
+
+  onError = error => {
+    console.error('Player Error:', error);
+    this.props.onPlaybackStop(this.props.station);
+  };
 
   render() {
     return null;

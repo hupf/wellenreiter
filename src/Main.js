@@ -23,12 +23,17 @@ class Main extends Component {
     this.setState({ playingStation: station });
   };
 
+  onPlaybackStop = station => {
+    this.setState({ activeStation: null, playingStation: null });
+  };
+
   render() {
     return (
       <div className="Main">
         <Player
           station={this.state.activeStation}
           onPlaybackStart={this.onPlaybackStart}
+          onPlaybackStop={this.onPlaybackStop}
         />
         <StationsContext.Consumer>
           {({
