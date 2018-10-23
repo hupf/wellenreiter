@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Amplify from 'aws-amplify';
+import { NotificationContainer } from 'react-notifications';
 
 import './App.css';
+import 'react-notifications/lib/notifications.css';
+
 import { StationsProvider } from './context/stations';
 import Main from './Main';
 import StationForm from './StationForm';
@@ -13,15 +16,18 @@ Amplify.configure(aws_exports);
 class App extends Component {
   render() {
     return (
-      <Router>
-        <main className="App">
-          <StationsProvider>
-            <Route exact path="/" component={Main} />
-            <Route path="/stations/new" component={StationForm} />
-            <Route path="/stations/:stationId/edit" component={StationForm} />
-          </StationsProvider>
-        </main>
-      </Router>
+      <>
+        <Router>
+          <main className="App">
+            <StationsProvider>
+              <Route exact path="/" component={Main} />
+              <Route path="/stations/new" component={StationForm} />
+              <Route path="/stations/:stationId/edit" component={StationForm} />
+            </StationsProvider>
+          </main>
+        </Router>
+        <NotificationContainer />
+      </>
     );
   }
 }

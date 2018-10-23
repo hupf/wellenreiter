@@ -10,6 +10,7 @@
     "is-url": "^1.2.4",
     "react": "^16.5.2",
     "react-dom": "^16.5.2",
+    "react-notifications": "^1.4.3",
     "react-router-dom": "^4.3.1",
     "uuid": "^3.3.2"
   },

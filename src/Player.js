@@ -1,6 +1,8 @@
 import { Component } from 'react';
 import { Howl } from 'howler';
 
+import { showError } from './error';
+
 const FADE_TIME = 300;
 
 class Player extends Component {
@@ -83,8 +85,8 @@ class Player extends Component {
   }
 
   onError = error => {
-    console.error('Player Error:', error);
     this.props.onPlaybackStop(this.props.station);
+    showError('Unable to load stream or start audio playback', error);
   };
 
   render() {
