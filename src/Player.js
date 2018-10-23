@@ -1,9 +1,30 @@
+import React, { Component } from 'react';
 import { Howl } from 'howler';
 
 const FADE_TIME = 300;
 
-class Player {
+class Player extends Component {
   sound = null;
+
+  async componentDidUpdate(prevProps) {
+    const prevStation = prevProps.station || null;
+    const newStation = this.props.station || null;
+    if (newStation !== prevStation) {
+      try {
+        if (prevStation) {
+          await this.stop();
+        }
+        if (newStation) {
+          await this.play(newStation.url);
+        }
+        if (this.props.onPlaybackStart) {
+          this.props.onPlaybackStart(newStation);
+        }
+      } catch (error) {
+        console.error('error', error);
+      }
+    }
+  }
 
   play(url) {
     return Promise.all([this.stop(), this.getStreamUrl(url)]).then(
@@ -58,6 +79,10 @@ class Player {
   // get isPlaying() {
   //   return this.soundId && this.sound && this.sound.playing(this.soundId);
   // }
+
+  render() {
+    return null;
+  }
 }
 
 export default Player;

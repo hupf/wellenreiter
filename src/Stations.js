@@ -4,10 +4,19 @@ import './Stations.css';
 import Station from './Station';
 
 function Stations(props) {
-  const { stations, activeStation, togglePlayback } = props;
+  const { stations, activeStation, playingStation, togglePlayback } = props;
+
+  function isLoading(station) {
+    return (
+      !playingStation && station.id === (activeStation && activeStation.id)
+    );
+  }
 
   function isActive(station) {
-    return station.id === (activeStation && activeStation.id);
+    return (
+      station.id === (activeStation && activeStation.id) &&
+      station.id === (playingStation && playingStation.id)
+    );
   }
 
   const className = `Stations ${stations.length <= 3 ? 'Stations-few' : ''}`;
@@ -18,6 +27,7 @@ function Stations(props) {
         <Station
           key={station.id}
           station={station}
+          loading={isLoading(station)}
           active={isActive(station)}
           togglePlayback={togglePlayback}
         />

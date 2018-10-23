@@ -6,34 +6,35 @@ import Player from './Player';
 import Stations from './Stations';
 
 class Main extends Component {
-  sound = null;
-  player = new Player();
-
-  constructor(props) {
-    super(props);
-    this.state = {
-      activeStation: null
-    };
-  }
+  state = {
+    activeStation: null,
+    playingStation: null
+  };
 
   togglePlayback(station) {
-    if (this.state.activeStation === station) {
-      this.player.stop().then(() => {
-        this.setState({ activeStation: null });
-      });
-    } else {
-      this.player.play(station.url).then(() => {
-        this.setState({ activeStation: station });
-      });
-    }
+    this.setState(state => ({
+      activeStation: state.activeStation === station ? null : station,
+      playingStation: null
+    }));
+  }
+
+  onPlaybackStart(station) {
+    this.setState(state => ({
+      playingStation: station
+    }));
   }
 
   render() {
     return (
       <div className="Main">
+        <Player
+          station={this.state.activeStation}
+          onPlaybackStart={this.onPlaybackStart.bind(this)}
+        />
         <Stations
           stations={this.props.stations}
           activeStation={this.state.activeStation}
+          playingStation={this.state.playingStation}
           togglePlayback={this.togglePlayback.bind(this)}
         />
         <Link className="Main-add button" to="/station/new">
