@@ -8,6 +8,7 @@ import './App.css';
 import 'react-notifications/lib/notifications.css';
 
 import { StationsProvider } from '../context/stations';
+import Welcome from './Welcome';
 import Main from './Main';
 import StationForm from './StationForm';
 import {
@@ -96,13 +97,7 @@ class App extends Component {
 
   render() {
     if (!this.isAuthenticated) {
-      return (
-        <main className="App">
-          <button className="button" onClick={this.login}>
-            Login
-          </button>
-        </main>
-      );
+      return <Welcome login={this.login} />;
     }
     return (
       <>

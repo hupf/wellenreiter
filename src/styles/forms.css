@@ -22,12 +22,11 @@ fieldset {
 label {
   display: block;
   margin-bottom: 0.2em;
-  font-weight: 500;
 }
 
 input, textarea {
   width: 100%;
-  padding: 0.5em;
+  padding: 1em 1em;
   border: 1px solid var(--gray-lighter);
   font-size: var(--base-font-size);
 }
