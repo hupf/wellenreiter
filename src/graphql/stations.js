@@ -10,7 +10,7 @@ import {
   updateStation as updateStationMutation,
   deleteStation as deleteStationMutation
 } from './mutations';
-import { showError } from '../error';
+import { showError } from '../utils/error';
 
 export async function listStations() {
   try {

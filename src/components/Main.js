@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 
 import './Main.css';
-import { StationsContext } from './context/stations';
+import { StationsContext } from '../context/stations';
 import Player from './Player';
 import Stations from './Stations';
 

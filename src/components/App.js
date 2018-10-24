@@ -7,7 +7,7 @@ import auth0 from 'auth0-js';
 import './App.css';
 import 'react-notifications/lib/notifications.css';
 
-import { StationsProvider } from './context/stations';
+import { StationsProvider } from '../context/stations';
 import Main from './Main';
 import StationForm from './StationForm';
 import {
@@ -15,8 +15,9 @@ import {
   getSessionIdToken,
   setSession,
   clearSession
-} from './utils/auth';
-import aws_exports from './aws-exports';
+} from '../utils/auth';
+import { showError } from '../utils/error';
+import aws_exports from '../aws-exports';
 
 Amplify.configure(aws_exports);
 Amplify.configure({
@@ -60,7 +61,7 @@ class App extends Component {
     try {
       authResult = await this.parseAuthResult();
     } catch (error) {
-      return console.error('Failure parsing authentication result:', error);
+      return showError('Login failure', error);
     }
 
     const session = setSession(authResult);

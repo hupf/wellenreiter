@@ -1,7 +1,7 @@
 import { Component } from 'react';
 import { Howl } from 'howler';
 
-import { showError } from './error';
+import { showError } from '../utils/error';
 
 const FADE_TIME = 300;
 

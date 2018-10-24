@@ -2,8 +2,8 @@ import React, { Component } from 'react';
 import { Link, Redirect } from 'react-router-dom';
 import isUrl from 'is-url';
 
-import { getStation } from './graphql/stations';
-import { StationsContext } from './context/stations';
+import { getStation } from '../graphql/stations';
+import { StationsContext } from '../context/stations';
 
 class StationForm extends Component {
   state = {
