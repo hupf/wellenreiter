@@ -19,6 +19,7 @@ export async function listStations() {
     return stations.sort((a, b) => a.position - b.position);
   } catch (error) {
     showError('Error fetching stations', error);
+    return [];
   }
 }
 

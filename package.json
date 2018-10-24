@@ -4,8 +4,8 @@
   "private": true,
   "homepage": "http://wellenreiterapp.com",
   "dependencies": {
+    "auth0-js": "^9.8.1",
     "aws-amplify": "^1.1.6",
-    "aws-amplify-react": "^2.0.7",
     "howler": "^2.0.15",
     "is-url": "^1.2.4",
     "react": "^16.5.2",
