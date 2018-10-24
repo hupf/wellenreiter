@@ -67,7 +67,7 @@ class App extends Component {
 
     const session = setSession(authResult);
     this.setState({ session });
-    window.history.pushState(null, '', '/');
+    window.location.replace('/');
   }
 
   parseAuthResult() {
