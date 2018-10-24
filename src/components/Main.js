@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
-import { Link } from 'react-router-dom';
 
-import './Main.css';
 import { StationsContext } from '../context/stations';
 import Player from './Player';
 import Stations from './Stations';
@@ -53,9 +51,6 @@ class Main extends Component {
             />
           )}
         </StationsContext.Consumer>
-        <Link className="Main-add button" to="/stations/new">
-          ＋
-        </Link>
       </div>
     );
   }

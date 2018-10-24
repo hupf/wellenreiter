@@ -10,6 +10,7 @@ import 'react-notifications/lib/notifications.css';
 import { StationsProvider } from '../context/stations';
 import Welcome from './Welcome';
 import Main from './Main';
+import Footer from './Footer';
 import StationForm from './StationForm';
 import {
   getSession,
@@ -45,7 +46,6 @@ class App extends Component {
       domain: 'hupf.eu.auth0.com',
       clientID: 'gv3ZcVE1KxQ40QREC8io0F1fXgn30SAs',
       redirectUri: `${window.location.origin}/callback`,
-      // audience: 'https://hupf.eu.auth0.com/userinfo',
       responseType: 'token id_token',
       scope: 'openid'
     });
@@ -95,6 +95,10 @@ class App extends Component {
     );
   }
 
+  get isMain() {
+    return window.location.pathname === '/';
+  }
+
   render() {
     if (!this.isAuthenticated) {
       return <Welcome login={this.login} />;
@@ -102,16 +106,23 @@ class App extends Component {
     return (
       <>
         <Router>
-          <main className="App">
-            <StationsProvider>
-              <Route exact path="/" component={Main} />
-              <Route path="/stations/new" component={StationForm} />
-              <Route path="/stations/:stationId/edit" component={StationForm} />
-            </StationsProvider>
-            <button className="button" onClick={this.logout}>
-              Logout
-            </button>
-          </main>
+          <div className="App">
+            <main className="App-main">
+              <StationsProvider>
+                <Route exact path="/" component={Main} />
+                <Route path="/stations/new" component={StationForm} />
+                <Route
+                  path="/stations/:stationId/edit"
+                  component={StationForm}
+                />
+              </StationsProvider>
+            </main>
+            <Footer
+              showAddStation={this.isMain}
+              showLogout={this.isAuthenticated}
+              logout={this.logout}
+            />
+          </div>
         </Router>
         <NotificationContainer />
       </>

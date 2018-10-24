@@ -1,0 +1,39 @@
+.Footer {
+  padding: var(--stations-gutter);
+  background-color: var(--footer-bg);
+  color: #fff;
+  display: flex;
+  align-items: center;
+}
+
+.Footer-title {
+  flex: 1;
+  margin: 0 1em;
+  font-weight: 100;
+  font-size: 30px;
+}
+
+.Footer-info {
+  flex: none;
+  font-size: 10px;
+}
+
+.Footer-info a {
+  color: var(--gray-light);
+}
+
+.Footer-actions {
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.Footer-actions > * {
+  margin-left: var(--stations-gutter);
+}
+
+.Footer-actions > .button,
+.Footer-actions > .button:active {
+  background: var(--gray-darker);
+  color: #fff;
+}
