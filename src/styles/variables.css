@@ -15,5 +15,5 @@
   --button-border-radius: 3px;
 
   --stations-gutter: 5px;
-  --stations-min-size: 100px;
+  --stations-min-size: 25vmin;
 }
