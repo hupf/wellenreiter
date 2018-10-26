@@ -96,7 +96,7 @@ class App extends Component {
   }
 
   get isMain() {
-    return window.location.pathname === '/';
+    return window.location.pathname === '/' && this.isAuthenticated;
   }
 
   render() {

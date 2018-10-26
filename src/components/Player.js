@@ -28,6 +28,10 @@ class Player extends Component {
     }
   }
 
+  componentWillUnmount() {
+    this.stop();
+  }
+
   play(url) {
     return Promise.all([this.stop(), this.getStreamUrl(url)]).then(
       ([_, streamUrl]) => {
