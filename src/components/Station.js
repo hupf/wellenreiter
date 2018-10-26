@@ -7,8 +7,9 @@ const LONG_CLICK_TIME = 700;
 class Station extends Component {
   clickTimer = null;
   isLongClick = false;
+  touch = false;
 
-  clickStart() {
+  startClick() {
     this.isLongClick = false;
     this.clickTimer = setTimeout(() => {
       if (this.props.onLongClick) {
@@ -19,7 +20,7 @@ class Station extends Component {
     }, LONG_CLICK_TIME);
   }
 
-  clickEnd() {
+  endClick() {
     if (this.clickTimer) {
       clearTimeout(this.clickTimer);
       this.clickTimer = null;
@@ -29,6 +30,27 @@ class Station extends Component {
       if (this.props.onShortClick) {
         this.props.onShortClick(this.props.station);
       }
+    }
+  }
+
+  onTouchStart() {
+    this.touch = true;
+    this.startClick();
+  }
+
+  onTouchEnd() {
+    this.endClick();
+  }
+
+  onMouseDown() {
+    if (!this.touch) {
+      this.startClick();
+    }
+  }
+
+  onMouseUp() {
+    if (!this.touch) {
+      this.endClick();
     }
   }
 
@@ -46,10 +68,10 @@ class Station extends Component {
       <div className="Station">
         <button
           className={stationClasses}
-          onMouseDown={() => this.clickStart()}
-          onMouseUp={() => this.clickEnd()}
-          onTouchStart={() => this.clickStart()}
-          onTouchEnd={() => this.clickEnd()}
+          onTouchStart={() => this.onTouchStart()}
+          onTouchEnd={() => this.onTouchEnd()}
+          onMouseDown={() => this.onMouseDown()}
+          onMouseUp={() => this.onMouseUp()}
         >
           {station.name}
           {spinner}
