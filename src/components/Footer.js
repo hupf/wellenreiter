@@ -4,7 +4,13 @@ import { Link } from 'react-router-dom';
 import './Footer.css';
 
 function Footer(props) {
-  const { showAddStation, showLogout, logout } = props;
+  const { infoOnly, showAddStation, showLogout, logout } = props;
+
+  const footerClasses = `Footer ${infoOnly && 'is-info-only'}`;
+
+  const title = infoOnly ? null : (
+    <div className="Footer-title">Wellenreiter</div>
+  );
 
   const addStationLink = showAddStation ? (
     <Link className="Footer-add button" to="/stations/new">
@@ -18,17 +24,21 @@ function Footer(props) {
     </button>
   ) : null;
 
+  const actions = infoOnly ? null : (
+    <div className="Footer-actions">
+      {addStationLink}
+      {logoutLink}
+    </div>
+  );
+
   return (
-    <footer className="Footer">
-      <div className="Footer-title">Wellenreiter</div>
+    <footer className={footerClasses}>
+      {title}
       <div className="Footer-info">
         © {new Date().getFullYear()} Mathis Hofer –{' '}
         <a href="https://github.com/hupf/wellenreiter">Github</a>
       </div>
-      <div className="Footer-actions">
-        {addStationLink}
-        {logoutLink}
-      </div>
+      {actions}
     </footer>
   );
 }

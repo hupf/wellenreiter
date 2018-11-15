@@ -1,6 +1,7 @@
 import React from 'react';
 
 import './Welcome.css';
+import Footer from './Footer';
 
 function Welcome(props) {
   const { login } = props;
@@ -13,6 +14,7 @@ function Welcome(props) {
           Login
         </button>
       </div>
+      <Footer infoOnly={true} />
     </main>
   );
 }

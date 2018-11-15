@@ -17,8 +17,14 @@
 .Footer-info {
   height: 30px;
   padding-top: 20px;
-  font-size: 10px;
+  font-size: 12px;
   white-space: nowrap;
+}
+.is-info-only .Footer-info {
+  height: auto;
+  padding-top: 0;
+  grid-column: 1 / 4;
+  text-align: center;
 }
 
 .Footer-info,

@@ -2,7 +2,7 @@
   min-height: 100vh;
   display: grid;
   grid-template-columns: 1fr min-content 1fr;
-  grid-template-rows: 1fr min-content 1fr;
+  grid-template-rows: 1fr min-content 1fr min-content;
   background-color: var(--gray);
 }
 
@@ -29,4 +29,9 @@
 }
 
 .Welcome-login {
+}
+
+.Welcome .Footer {
+  grid-column: 1 / 4;
+  grid-row: 4 / 5;
 }
