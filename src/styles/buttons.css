@@ -13,9 +13,9 @@
 }
 
 .button.is-primary {
-  background-color: var(--blue);
+  background-color: var(--primary-button);
   color: #fff;
 }
 .button.is-primary:active {
-  background-color: var(--blue-dark);
+  background-color: var(--primary-button-active);
 }

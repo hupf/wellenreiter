@@ -1,15 +1,18 @@
 :root {
   --base-font-size: 16px;
 
-  --error: red;
-  --blue: #125e90;
-  --blue-dark: #105380;
+  --red: #da0928;
+  --red-dark: #cc0825;
+
   --gray-lighter: #e5e4ea;
   --gray-light: #bababc;
   --gray: #3d3e40;
   --gray-dark: #1f242a;
   --gray-darker: #131315;
 
+  --error: var(--red);
+  --primary-button: var(--red);
+  --primary-button-active: var(--red-dark);
   --footer-bg: #313133;
 
   --button-border-radius: 3px;
