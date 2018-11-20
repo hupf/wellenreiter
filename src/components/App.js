@@ -43,8 +43,8 @@ class App extends Component {
 
   initAuth() {
     this.auth0 = new auth0.WebAuth({
-      domain: 'hupf.eu.auth0.com',
-      clientID: 'gv3ZcVE1KxQ40QREC8io0F1fXgn30SAs',
+      domain: process.env.REACT_APP_AUTH0_DOMAIN,
+      clientID: process.env.REACT_APP_AUTH0_CLIENTID,
       redirectUri: `${window.location.origin}/callback`,
       responseType: 'token id_token',
       scope: 'openid'

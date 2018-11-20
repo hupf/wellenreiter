@@ -66,9 +66,23 @@ class Player extends Component {
   }
 
   async fetchM3U(url) {
-    const response = await fetch(url);
+    const response = await fetch(this.getM3UUrl(url));
     const data = await response.text();
     return this.parseM3U(data);
+  }
+
+  /**
+   * To avoid problems with mixed active content, use a service over
+   * HTTPS that fetches the M3U file.
+   */
+  getM3UUrl(url) {
+    if (process.env.REACT_APP_M3U_CONVERSION_URL) {
+      const baseUrl = process.env.REACT_APP_M3U_CONVERSION_URL;
+      return `${baseUrl}?url=${encodeURIComponent(url)}`;
+    } else {
+      // Fallback if env variable is not defined
+      return url;
+    }
   }
 
   parseM3U(data) {

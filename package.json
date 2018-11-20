@@ -15,6 +15,7 @@
     "uuid": "^3.3.2"
   },
   "devDependencies": {
+    "env-cmd": "^8.0.2",
     "husky": "^1.1.1",
     "lint-staged": "^7.3.0",
     "prettier": "^1.14.3",
@@ -22,9 +23,8 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "build": "env-cmd .env.production react-scripts build",
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"
