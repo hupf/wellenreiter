@@ -4,7 +4,7 @@ Radio streaming web application, available at [wellenreiterapp.com](http://welle
 
 ## Setup
 
-Rename `.env.production.example` to `.env.production` and adjust the contained environment variables.
+Rename `.env.production.example` to `.env.production` and `.env.production.local.example` to `.env.production.local` and adjust the contained environment variables.
 
 ## Author
 

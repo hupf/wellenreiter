@@ -22,7 +22,7 @@
     "react-scripts": "2.1.8"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "env-cmd .env.production.local react-scripts start",
     "build": "env-cmd .env.production react-scripts build",
     "test": "react-scripts test",
     "format": "prettier --write \"./**/*.{js,ts,json,css,scss,html,md,yaml}\""
