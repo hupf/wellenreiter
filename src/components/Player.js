@@ -46,12 +46,15 @@ class Player extends Component {
   stop() {
     return new Promise(resolve => {
       this.sound && this.sound.fade(1, 0, FADE_TIME);
-      setTimeout(() => {
-        this.sound && this.sound.unload();
-        this.sound = null;
-        this.soundId = null;
-        resolve();
-      }, this.sound ? FADE_TIME : 0);
+      setTimeout(
+        () => {
+          this.sound && this.sound.unload();
+          this.sound = null;
+          this.soundId = null;
+          resolve();
+        },
+        this.sound ? FADE_TIME : 0
+      );
     });
   }
 

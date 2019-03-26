@@ -24,7 +24,8 @@ label {
   margin-bottom: 0.2em;
 }
 
-input, textarea {
+input,
+textarea {
   width: 100%;
   padding: 1em 1em;
   border: 1px solid var(--gray-lighter);
@@ -37,7 +38,9 @@ input, textarea {
   color: var(--error);
 }
 
-.has-error input, textarea, select {
+.has-error input,
+textarea,
+select {
   border-color: var(--error);
 }
 

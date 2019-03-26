@@ -18,13 +18,14 @@
     "env-cmd": "^8.0.2",
     "husky": "^1.1.1",
     "lint-staged": "^7.3.0",
-    "prettier": "^1.14.3",
+    "prettier": "1.16.4",
     "react-scripts": "2.1.8"
   },
   "scripts": {
     "start": "react-scripts start",
     "build": "env-cmd .env.production react-scripts build",
-    "test": "react-scripts test"
+    "test": "react-scripts test",
+    "format": "prettier --write \"./**/*.{js,ts,json,css,scss,html,md,yaml}\""
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -35,7 +36,7 @@
     }
   },
   "lint-staged": {
-    "src/**/*.js": [
+    "src/**/*.{js,ts,json,css,scss,html,md,yaml}": [
       "prettier --write",
       "git add"
     ]
